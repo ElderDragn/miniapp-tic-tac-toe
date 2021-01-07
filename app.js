@@ -35,10 +35,30 @@ Square:
 
 */
 
+class GameSquare {
+  constructor(domNode, parentBoard = {currentPlayer:'X'}) {
+    this.parentBoard = parentBoard;
+    this.played = false;
+    this.node = domNode;
+    this.playMove = this.playMove.bind(this);
+    this.reset = this.reset.bind(this);
+    this.node.addEventListener('click', this.playMove);
+  }
 
+  reset() {
+    this.played = false;
+    // this.node.innerText = this.parentBoard.currentPlayer;
+    this.node.innerText = 0;
+    this.node.addEventListener('click', this.playMove);
+  }
 
+  playMove() {
+    this.played = true;
+    this.node.innerText = this.parentBoard.currentPlayer;
+    this.node.removeEventListener('click', this.playMove);
+  }
 
-
+}
 
 
 //Once page loads, create new board with existing tic-tac-table
