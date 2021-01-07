@@ -60,6 +60,47 @@ class GameSquare {
 
 }
 
+class GameBoard {
+
+  constructor(nodes) {
+    this.currentPlayer = 'X';
+    this.n = Math.sqrt(nodes.length);
+    this.squares = Array(this.n).fill(0).map(() => Array(this.n));
+    this.initiate(nodes, this.n);
+  }
+
+  initiate(nodes, n) {
+    if (n % 1) {
+      throw new RangeError(`Invalid board length ${n}`);
+    }
+
+    let i = 0;
+    for (let x = 0; x < n; x++) {
+      for (let y = 0; y < n; y++) {
+        let node = nodes[i];
+        let square = new GameSquare(node, this)
+        this.squares[x][y] = square;
+        i += n;
+        i -= (i >= nodes.length) ? (nodes.length - 1) : 0;
+      }
+    }
+  }
+  reset() {
+    this.squares.forEach((column) =>
+      column.forEach((square) => {
+        square.reset();
+      })
+    )
+  }
+
+  swapPlayer() {
+    this.currentPlayer = (this.currentPlayer = 'X') ? 'O' : 'X';
+  }
+
+  checkWin() {
+
+  }
+}
 
 //Once page loads, create new board with existing tic-tac-table
 
