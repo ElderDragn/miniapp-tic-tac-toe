@@ -104,6 +104,9 @@ class GameBoard {
 
 //Once page loads, create new board with existing tic-tac-table
 
-document.onload = () => {
-
+window.onload = () => {
+  console.log('loaded');
+  var squares = document.getElementsByClassName('square');
+  window.board = new GameBoard(squares);
+  document.getElementsByClassName('resetButton')[0].addEventListener('click', board.resetAll);
 }
